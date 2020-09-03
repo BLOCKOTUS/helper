@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/BLOCKOTUS/helper#readme",
   "dependencies": {
-    "fabric-network": "^2.2.0"
+    "fabric-network": "^2.2.2"
   }
 }
