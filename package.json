@@ -1,0 +1,22 @@
+{
+  "name": "helper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BLOCKOTUS/helper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BLOCKOTUS/helper/issues"
+  },
+  "homepage": "https://github.com/BLOCKOTUS/helper#readme",
+  "dependencies": {
+    "fabric-network": "^2.2.0"
+  }
+}
