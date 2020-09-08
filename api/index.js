@@ -8,8 +8,8 @@ const { Gateway, Wallets } = require('fabric-network');
 const fs = require('fs');
 const path = require('path');
 
-const WALLET_PATH = path.join(__dirname, '..', '..', '..', '..', '..', 'wallet');
-const CCP_PATH = path.resolve(__dirname, '..', '..', '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
+const WALLET_PATH = path.join(__dirname, '..', '..', '..', 'wallet');
+const CCP_PATH = path.resolve(__dirname, '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
 
 async function getContractAndGateway({username, chaincode, contract}) {
 	// load the network configuration
