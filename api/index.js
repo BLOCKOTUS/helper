@@ -28,6 +28,7 @@ async function getContractAndGateway({username, chaincode, contract}) {
 
 	// Get the network (channel) our contract is deployed to.
 	const network = await gateway.getNetwork('mychannel');
+	if (!network) throw new Error(`Could not get the network.`);
 
 	// Get the contract from the network.
 	return {contract: network.getContract(chaincode, contract), gateway};
