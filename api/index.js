@@ -36,5 +36,5 @@ async function getContractAndGateway({username, chaincode, contract}) {
 
 
 module.exports = {
-	getContractAndGateway
-}
+	getContractAndGateway,
+};

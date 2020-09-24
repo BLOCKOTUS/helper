@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,15 @@
   },
   "homepage": "https://github.com/BLOCKOTUS/helper#readme",
   "dependencies": {
+    "eslint-plugin-flowtype": "^5.2.0",
     "fabric-network": "^2.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.9.0",
+    "husky": "^4.3.0"
+  },
+  "hooks": {
+    "pre-push": "yarn run lint"
   }
 }

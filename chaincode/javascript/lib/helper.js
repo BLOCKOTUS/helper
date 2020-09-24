@@ -8,7 +8,7 @@ const { Contract } = require('fabric-contract-api');
 
 class Helper extends Contract {
 
-    async initLedger(ctx) {
+    async initLedger() {
       
     }
 
