@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/BLOCKOTUS/helper#readme",
   "dependencies": {
-    "eslint-plugin-flowtype": "^5.2.0",
     "fabric-network": "^2.2.2"
   },
   "devDependencies": {
+    "eslint-plugin-flowtype": "^5.2.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.9.0",
     "husky": "^4.3.0"
