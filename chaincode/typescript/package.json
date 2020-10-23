@@ -1,5 +1,5 @@
 {
-    "name": "blockotus-organ-helper-chaincode",
+    "name": "blockotus-organ-helper-chaincode-typescript",
     "version": "0.1.7-beta",
     "description": "helper chaincode implemented in node.js",
     "main": "dist/index.js",
