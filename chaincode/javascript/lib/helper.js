@@ -13,8 +13,8 @@ class Helper extends Contract {
     }
 
     getCreatorId(ctx) {
-        const clientId = ctx.clientIdentity.id;
-        const mspId = ctx.clientIdentity.mspId;
+        const clientId = ctx.clientIdentity.getID();
+        const mspId = ctx.clientIdentity.getMSPID();
         const id = `${mspId}::${clientId}`;
         return id;
     }
