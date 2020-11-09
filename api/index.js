@@ -1,12 +1,9 @@
 import { Gateway, Wallets } from 'fabric-network';
 import fs from 'fs';
-import path, { dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-const WALLET_PATH = path.join(__dirname, '..', '..', '..', 'wallet');
-const CCP_PATH = path.resolve(__dirname, '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
+const WALLET_PATH = path.join(__dirname, '..', '..', '..', '..', 'wallet');
+const CCP_PATH = path.resolve(__dirname, '..', '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
 
 export const getContractAndGateway = async ({username, chaincode, contract}) => {
 	// load the network configuration
