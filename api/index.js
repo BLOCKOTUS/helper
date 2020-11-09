@@ -1,17 +1,14 @@
-/*
- * SPDX-License-Identifier: Apache-2.0
- */
+import { Gateway, Wallets } from 'fabric-network';
+import fs from 'fs';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
-'use strict';
-
-const { Gateway, Wallets } = require('fabric-network');
-const fs = require('fs');
-const path = require('path');
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 const WALLET_PATH = path.join(__dirname, '..', '..', '..', 'wallet');
 const CCP_PATH = path.resolve(__dirname, '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
 
-async function getContractAndGateway({username, chaincode, contract}) {
+export const getContractAndGateway = async ({username, chaincode, contract}) => {
 	// load the network configuration
 	const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
 
@@ -32,9 +29,4 @@ async function getContractAndGateway({username, chaincode, contract}) {
 
 	// Get the contract from the network.
 	return {contract: network.getContract(chaincode, contract), gateway};
-}
-
-
-module.exports = {
-	getContractAndGateway,
 };
