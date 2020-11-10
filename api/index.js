@@ -5,6 +5,10 @@ import path from 'path';
 const WALLET_PATH = path.join(__dirname, '..', '..', '..', 'wallet');
 const CCP_PATH = path.resolve(__dirname, '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
 
+/**
+ * Retrieve contract and gateway from the network.
+ * Those two objects are used by other API to submit each transaction to the network.
+ */
 export const getContractAndGateway = async ({username, chaincode, contract}) => {
 	// load the network configuration
 	const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
