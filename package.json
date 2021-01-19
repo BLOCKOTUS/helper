@@ -20,7 +20,7 @@
   "homepage": "https://github.com/BLOCKOTUS/helper#readme",
   "dependencies": {
     "core-js": "^3.7.0",
-    "fabric-network": "^2.2.2"
+    "fabric-network": "^2.2.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
