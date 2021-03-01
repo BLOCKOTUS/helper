@@ -38,6 +38,7 @@ export const sendSignedTransactionProposal = async ({
     username,
     user,
     chaincode,
+    contract,
     fcn,
     args,
 }) => {
@@ -53,6 +54,11 @@ export const sendSignedTransactionProposal = async ({
     const client = new Client(ccp);
     const userContext = await provider.getUserContext(user, username);
 
+    // get channel
+    const { gateway } = await getContractAndGateway({ username, chaincode, contract });
+    const network = await gateway.getNetwork('mychannel');
+    const channel = network.getChannel();
+
     // return proposal response
-    return await sendProposal({ client, user: userContext, privateKeyPEM: user.credentials.privateKey, chaincode, fcn, args });
+    return await sendProposal({ client, channel, user: userContext, privateKeyPEM: user.credentials.privateKey, chaincode, fcn, args });
 }
