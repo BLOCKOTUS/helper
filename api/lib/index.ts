@@ -47,10 +47,12 @@ export const sendSignedTransactionProposal = async ({
     // Check to see if we've already enrolled the user.
     const identity = await wallet.get(username);
 
+    // build a user object for authenticating with the CA
     const provider = wallet.getProviderRegistry().getProvider(identity.type);
     const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
     const client = new Client(ccp);
     const userContext = await provider.getUserContext(user, username);
 
-    return await sendProposal({client, user: userContext, privateKeyPEM: user.credentials.privateKey, chaincode, fcn, args})
+    // return proposal response
+    return await sendProposal({ client, user: userContext, privateKeyPEM: user.credentials.privateKey, chaincode, fcn, args });
 }
