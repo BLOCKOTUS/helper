@@ -1,6 +1,8 @@
 import { Gateway, Wallets } from 'fabric-network';
+import { Client } from 'fabric-common';
 import fs from 'fs';
 import path from 'path';
+import { sendProposal } from 'hyperledger-fabric-offline-transaction-signing';
 
 const WALLET_PATH = path.join(__dirname, '..', '..', '..', '..', 'wallet');
 const CCP_PATH = path.resolve(__dirname, '..', '..', '..', '..', 'network', 'organizations', 'peerOrganizations', 'org1.example.com', 'connection-org1.json');
@@ -31,3 +33,24 @@ export const getContractAndGateway = async ({username, chaincode, contract}) => 
     // Get the contract from the network.
     return {contract: network.getContract(chaincode, contract), gateway};
 };
+
+export const sendSignedTransactionProposal = async ({
+    username,
+    user,
+    chaincode,
+    fcn,
+    args,
+}) => {
+    // Create a new file system based wallet for managing identities.
+    const wallet = await Wallets.newFileSystemWallet(WALLET_PATH);
+
+    // Check to see if we've already enrolled the user.
+    const identity = await wallet.get(username);
+
+    const provider = wallet.getProviderRegistry().getProvider(identity.type);
+    const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
+    const client = new Client(ccp);
+    const userContext = await provider.getUserContext(user, username);
+
+    return await sendProposal({client, user: userContext, privateKeyPEM: user.credentials.privateKey, chaincode, fcn, args})
+}

@@ -20,7 +20,8 @@
   "homepage": "https://github.com/BLOCKOTUS/helper#readme",
   "dependencies": {
     "core-js": "^3.8.3",
-    "fabric-network": "^2.2.5"
+    "fabric-network": "^2.2.5",
+    "hyperledger-fabric-offline-transaction-signing": "^0.0.6"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.10",
