@@ -11,16 +11,18 @@ const CCP_PATH = path.resolve(__dirname, '..', '..', '..', '..', 'network', 'org
  * Retrieve contract and gateway from the network.
  * Those two objects are used by other API to submit each transaction to the network.
  */
-export const getContractAndGateway = async ({username, chaincode, contract}) => {
+export const getContractAndGateway = async ({ user, chaincode, contract }) => {
     // load the network configuration
     const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
 
     // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(WALLET_PATH, `${user.username}.id`);
+    fs.writeFileSync(walletPath, JSON.stringify(user.wallet));
     const wallet = await Wallets.newFileSystemWallet(WALLET_PATH);
 
     // Check to see if we've already enrolled the user.
-    const identity = await wallet.get(username);
-    if (!identity) { throw new Error(`An identity for the user "${username}" does not exist in the wallet`); }
+    const identity = await wallet.get(user.username);
+    if (!identity) { throw new Error(`An identity for the user "${user.username}" does not exist in the wallet`); }
 
     // Create a new gateway for connecting to our peer node.
     const gateway = new Gateway();
@@ -31,7 +33,7 @@ export const getContractAndGateway = async ({username, chaincode, contract}) => 
     if (!network) { throw new Error(`Could not get the network.`); }
 
     // Get the contract from the network.
-    return {contract: network.getContract(chaincode, contract), gateway};
+    return { contract: network.getContract(chaincode, contract), gateway, network };
 };
 
 export const sendSignedTransactionProposal = async ({
@@ -43,6 +45,8 @@ export const sendSignedTransactionProposal = async ({
     args,
 }) => {
     // Create a new file system based wallet for managing identities.
+    const walletPath = path.join(WALLET_PATH, `${user.username}.id`);
+    fs.writeFileSync(walletPath, JSON.stringify(user.wallet));
     const wallet = await Wallets.newFileSystemWallet(WALLET_PATH);
 
     // Check to see if we've already enrolled the user.
@@ -52,13 +56,12 @@ export const sendSignedTransactionProposal = async ({
     const provider = wallet.getProviderRegistry().getProvider(identity.type);
     const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
     const client = new Client(ccp);
-    const userContext = await provider.getUserContext(user, username);
-
+    const userContext = await provider.getUserContext(user.wallet, username);
+    
     // get channel
-    const { gateway } = await getContractAndGateway({ username, chaincode, contract });
-    const network = await gateway.getNetwork('mychannel');
+    const { network } = await getContractAndGateway({ user, chaincode, contract });
     const channel = network.getChannel();
 
     // return proposal response
-    return await sendProposal({ client, channel, user: userContext, privateKeyPEM: user.credentials.privateKey, chaincode, fcn, args });
-}
+    return await sendProposal({ client, channel, user: userContext, privateKeyPEM: user.wallet.credentials.privateKey, chaincode, fcn, args });
+};
