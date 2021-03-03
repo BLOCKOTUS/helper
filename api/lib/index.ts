@@ -63,5 +63,10 @@ export const sendSignedTransactionProposal = async ({
     const channel = network.getChannel();
 
     // return proposal response
-    return await sendProposal({ client, channel, user: userContext, privateKeyPEM: user.wallet.credentials.privateKey, chaincode, fcn, args });
+    let result;
+    await sendProposal({ client, channel, user: userContext, privateKeyPEM: user.wallet.credentials.privateKey, chaincode, fcn, args })
+        .catch(e => { throw new Error(e); })
+        .then(res => result = res);
+    
+    return result;
 };
