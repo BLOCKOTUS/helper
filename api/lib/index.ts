@@ -57,7 +57,7 @@ export const sendSignedTransactionProposal = async ({
     const ccp = JSON.parse(fs.readFileSync(CCP_PATH, 'utf8'));
     const client = new Client(ccp);
     const userContext = await provider.getUserContext(user.wallet, username);
-    
+
     // get channel
     const { network } = await getContractAndGateway({ user, chaincode, contract });
     const channel = network.getChannel();
@@ -67,6 +67,6 @@ export const sendSignedTransactionProposal = async ({
     await sendProposal({ client, channel, user: userContext, privateKeyPEM: user.wallet.credentials.privateKey, chaincode, fcn, args })
         .catch(e => { throw new Error(e); })
         .then(res => result = res);
-    
+
     return result;
 };

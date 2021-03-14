@@ -128,45 +128,43 @@ var sendSignedTransactionProposal = /*#__PURE__*/function () {
         switch (_context2.prev = _context2.next) {
           case 0:
             username = _ref3.username, user = _ref3.user, chaincode = _ref3.chaincode, contract = _ref3.contract, fcn = _ref3.fcn, args = _ref3.args;
-            console.log('in send sign'); // Create a new file system based wallet for managing identities.
-
+            // Create a new file system based wallet for managing identities.
             walletPath = _path["default"].join(WALLET_PATH, "".concat(user.username, ".id"));
 
             _fs["default"].writeFileSync(walletPath, JSON.stringify(user.wallet));
 
-            _context2.next = 6;
+            _context2.next = 5;
             return _fabricNetwork.Wallets.newFileSystemWallet(WALLET_PATH);
 
-          case 6:
+          case 5:
             wallet = _context2.sent;
-            _context2.next = 9;
+            _context2.next = 8;
             return wallet.get(username);
 
-          case 9:
+          case 8:
             identity = _context2.sent;
             // build a user object for authenticating with the CA
             provider = wallet.getProviderRegistry().getProvider(identity.type);
             ccp = JSON.parse(_fs["default"].readFileSync(CCP_PATH, 'utf8'));
             client = new _fabricCommon.Client(ccp);
-            _context2.next = 15;
+            _context2.next = 14;
             return provider.getUserContext(user.wallet, username);
 
-          case 15:
+          case 14:
             userContext = _context2.sent;
-            _context2.next = 18;
+            _context2.next = 17;
             return getContractAndGateway({
               user: user,
               chaincode: chaincode,
               contract: contract
             });
 
-          case 18:
+          case 17:
             _yield$getContractAnd = _context2.sent;
             network = _yield$getContractAnd.network;
             channel = network.getChannel(); // return proposal response
 
-            console.log('just before sending');
-            _context2.next = 24;
+            _context2.next = 22;
             return (0, _hyperledgerFabricOfflineTransactionSigning.sendProposal)({
               client: client,
               channel: channel,
@@ -181,11 +179,10 @@ var sendSignedTransactionProposal = /*#__PURE__*/function () {
               return result = res;
             });
 
-          case 24:
-            console.log('just after sending');
+          case 22:
             return _context2.abrupt("return", result);
 
-          case 26:
+          case 23:
           case "end":
             return _context2.stop();
         }
